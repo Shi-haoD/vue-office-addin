@@ -1,6 +1,7 @@
 # Vue2 + Office Add-in关于用vue项目于加载项控制excel单元格内容（Demo版）
 
 csdn文档：https://blog.csdn.net/Shi_haoliu/article/details/153469921?spm=1001.2014.3001.5501
+
 主要步骤：写好vue代码>生成密钥>启动代码>在window下创建一个共享文件夹>放入manifest.xml文件>打开excel的加载项>找到共享文件夹>点击加载
 # 开发使用步骤
 ## 1.新建vue2结构
