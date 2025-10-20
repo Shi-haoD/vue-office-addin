@@ -2,6 +2,10 @@
 
 csdn文档：https://blog.csdn.net/Shi_haoliu/article/details/153469921?spm=1001.2014.3001.5501
 
+最终实现内容
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/56f7cce6014644a1a380c5c3f89b6de7.png)
+
 主要步骤：写好vue代码>生成密钥>启动代码>在window下创建一个共享文件夹>放入manifest.xml文件>打开excel的加载项>找到共享文件夹>点击加载
 
 环境：
@@ -478,3 +482,6 @@ begin
 end;
 
 ```
+## 6.完成上面的安装后，直接打开加载项就可以使用了，之后每次打开都会默认加载
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3da6c0a9505d4a748ce5be4a0e26a790.png)
+这里第一次打开需要双击
