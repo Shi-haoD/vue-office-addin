@@ -3,11 +3,17 @@
 csdn文档：https://blog.csdn.net/Shi_haoliu/article/details/153469921?spm=1001.2014.3001.5501
 
 主要步骤：写好vue代码>生成密钥>启动代码>在window下创建一个共享文件夹>放入manifest.xml文件>打开excel的加载项>找到共享文件夹>点击加载
+
 环境：
+
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4320715476304918b90dc308e6f1b768.png)
+
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de6b9ff5440b49beb507813eb82a71e9.png)
+
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e2c6360d8f74b2c973ad42a846f5736.png)
+
 系统是win10
+
 # 开发使用步骤
 ## 1.新建vue2结构
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/236e668e60cc4940b383eea0f0278e61.png)
