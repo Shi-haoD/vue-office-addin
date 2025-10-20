@@ -3,6 +3,11 @@
 csdn文档：https://blog.csdn.net/Shi_haoliu/article/details/153469921?spm=1001.2014.3001.5501
 
 主要步骤：写好vue代码>生成密钥>启动代码>在window下创建一个共享文件夹>放入manifest.xml文件>打开excel的加载项>找到共享文件夹>点击加载
+环境：
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4320715476304918b90dc308e6f1b768.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de6b9ff5440b49beb507813eb82a71e9.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e2c6360d8f74b2c973ad42a846f5736.png)
+系统是win10
 # 开发使用步骤
 ## 1.新建vue2结构
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/236e668e60cc4940b383eea0f0278e61.png)
@@ -138,30 +143,90 @@ export async function readCell() {
 这个是生成的密钥，需要https才能访问到页面
 ### manifest.xml
 `这个是要放在共享文件夹中的主要代码，DefaultValue="https://localhost:8080"这里是页面的地址，千万注意要是https的，否则excel那边打不开`
-
+2025-10-20增加了任务窗格的图标
 ```javascript
-<?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:type="TaskPaneApp">
-
-  <Id>12345678-aaaa-bbbb-cccc-123456789abc</Id>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <Id>c49de0c7-98e1-420f-8e3f-cb6fb40fc047</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Vue Office Addin</ProviderName>
-  <DefaultLocale>zh-CN</DefaultLocale>
-  <DisplayName DefaultValue="Vue Office Addin"/>
-  <Description DefaultValue="A Vue2 Excel Add-in demo"/>
-
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Excel-HelloWorld-Taskpane-JS"/>
+  <Description DefaultValue="A template to get started."/>
+  <IconUrl DefaultValue="https://localhost:8080/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:8080/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <AppDomains>
+    <AppDomain>https://www.contoso.com</AppDomain>
+  </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
   </Hosts>
-
   <DefaultSettings>
     <SourceLocation DefaultValue="https://localhost:8080"/>
-    
   </DefaultSettings>
-
   <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="CommandsGroup">
+                <Label resid="CommandsGroup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label"/>
+                    <Description resid="TaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:8080/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:8080/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:8080/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:8080"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Vue Test"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Vue"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Taskpane' button to get started."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
 </OfficeApp>
 
 ```
@@ -241,3 +306,169 @@ The local CA is now installed in the system trust store!
 5.![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2802c295322746e39bfffa954ae3ba5a.png)
 ## 5.制作安装包，给客户直接一键安装好
 制作中，预计使用.exe安装，然后拿注册表写到系统里
+exe打包工具
+https://jrsoftware.org/isdl.php#stable
+创建iss文件
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c44e0678f2834651b5f9869f2c11d588.png)
+在setup文件中编辑，并把manifest.xml放在当前目录
+`注意这个文件中的注册表和共享文件目录位置，我用的是office365，其他版本的适配还没测试`
+```javascript
+; ----------------------------
+; Inno Setup 完整安装器脚本（自带 GUID 生成）
+; ----------------------------
+[Setup]
+AppName=Vue Office Addin
+AppVersion=1.0.0
+DefaultDirName={commonappdata}\VueOfficeAddin
+OutputBaseFilename=VueOfficeAddinInstaller
+Compression=lzma
+SolidCompression=yes
+PrivilegesRequired=admin
+Uninstallable=yes
+WizardStyle=modern
+
+[Files]
+Source: "manifest.xml"; DestDir: "{app}"; Flags: ignoreversion
+
+[Code]
+var
+  UserChoice: Integer;
+
+function GetComputerNameStr(): String;
+begin
+  Result := GetEnv('COMPUTERNAME');
+  if Result = '' then
+    Result := 'localhost';
+end;
+
+procedure CreateNetworkShare(ShareName, FolderPath: String);
+var
+  ResultCode: Integer;
+begin
+  if not DirExists(FolderPath) then
+    CreateDir(FolderPath);
+
+  { 使用 PowerShell 强制创建共享 }
+  Exec('powershell',
+       '-Command "New-SmbShare -Name ' + ShareName + ' -Path ''' + FolderPath + ''' -FullAccess Everyone"',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  if ResultCode = 0 then
+    MsgBox('✅ 共享文件夹已创建: \\'+GetComputerNameStr()+'\' + ShareName, mbInformation, MB_OK)
+  else
+    MsgBox('❌ 创建共享失败，请检查权限', mbCriticalError, MB_OK);
+end;
+
+function GenerateGUIDString(): String;
+var
+  i: Integer;
+  HexDigits: String;
+begin
+  HexDigits := '0123456789ABCDEF';
+  Result := '{';
+  for i := 1 to 8 do Result := Result + HexDigits[Random(16)+1];
+  Result := Result + '-';
+  for i := 1 to 4 do Result := Result + HexDigits[Random(16)+1];
+  Result := Result + '-';
+  for i := 1 to 4 do Result := Result + HexDigits[Random(16)+1];
+  Result := Result + '-';
+  for i := 1 to 4 do Result := Result + HexDigits[Random(16)+1];
+  Result := Result + '-';
+  for i := 1 to 12 do Result := Result + HexDigits[Random(16)+1];
+  Result := Result + '}';
+end;
+
+procedure RegisterExcelSharedFolder(ShareName: String);
+var
+  UNCPath, GUIDStr, RegPath: String;
+  ResultCode: Integer;
+begin
+  UNCPath := '\\' + GetComputerNameStr() + '\' + ShareName;
+  GUIDStr := GenerateGUIDString();
+  RegPath := 'HKCU\Software\Microsoft\Office\16.0\WEF\TrustedCatalogs\' + GUIDStr;
+
+  { 写 Flags }
+  Exec(ExpandConstant('{sys}\reg.exe'),
+       'add "' + RegPath + '" /v "Flags" /t REG_DWORD /d 1 /f',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  { 写 Id }
+  Exec(ExpandConstant('{sys}\reg.exe'),
+       'add "' + RegPath + '" /v "Id" /t REG_SZ /d "' + GUIDStr + '" /f',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  { 写 Url }
+  Exec(ExpandConstant('{sys}\reg.exe'),
+       'add "' + RegPath + '" /v "Url" /t REG_SZ /d "' + UNCPath + '" /f',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  MsgBox('✅ Excel 共享目录已注册成功:'#13#10 +
+         '路径: ' + UNCPath, mbInformation, MB_OK);
+end;
+
+procedure ForceRemoveNetworkShare(ShareName: String);
+var
+  ResultCode: Integer;
+begin
+  Exec('powershell',
+       '-Command "Get-SmbShare -Name ' + ShareName + ' | Remove-SmbShare -Force"',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  if ResultCode = 0 then
+    MsgBox('✅ 网络共享已删除: ' + ShareName, mbInformation, MB_OK)
+  else
+    MsgBox('⚠ 网络共享删除失败或不存在: ' + ShareName, mbInformation, MB_OK);
+end;
+
+procedure DeleteExcelRegistry();
+var
+  ResultCode: Integer;
+begin
+  Exec(ExpandConstant('{sys}\reg.exe'),
+       'delete "HKCU\Software\Microsoft\Office\16.0\WEF\TrustedCatalogs" /f',
+       '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+end;
+
+procedure DeleteSharedFolder(FolderPath: String);
+begin
+  if DirExists(FolderPath) then
+  begin
+    if DelTree(FolderPath, True, True, True) then
+      MsgBox('✅ 文件夹已删除: ' + FolderPath, mbInformation, MB_OK)
+    else
+      MsgBox('❌ 无法删除文件夹: ' + FolderPath + '，请确保没有程序占用', mbCriticalError, MB_OK);
+  end;
+end;
+
+procedure InitializeWizard();
+begin
+  UserChoice := MsgBox('请选择操作:'#13#10+
+                       'Yes = 安装（创建共享 + 拷贝 manifest + 注册 Excel）'#13#10+
+                       'No  = 卸载（删除共享 + 删除注册表 + 删除文件夹）',
+                       mbConfirmation, MB_YESNO);
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+  AppFolder: String;
+begin
+  AppFolder := ExpandConstant('{app}');
+
+  if CurStep = ssPostInstall then
+  begin
+    if UserChoice = idYes then
+    begin
+      CreateNetworkShare('VueOfficeAddin', AppFolder);
+      RegisterExcelSharedFolder('VueOfficeAddin');
+      MsgBox('✅ 安装完成！', mbInformation, MB_OK);
+    end
+    else if UserChoice = idNo then
+    begin
+      ForceRemoveNetworkShare('VueOfficeAddin');
+      DeleteExcelRegistry();
+      DeleteSharedFolder(AppFolder);
+      MsgBox('✅ 卸载完成！', mbInformation, MB_OK);
+    end;
+  end;
+end;
+
+```
